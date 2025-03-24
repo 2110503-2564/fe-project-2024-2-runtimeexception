@@ -1,9 +1,23 @@
-export interface ReservationItem{
-    carId: string
-    carModel:string
-    numOfDays:number
-    pickupDate:string
-    pickupLocation:string
-    returnDate:string
-    returnLocation:string
+export interface BookingItem{
+    bookDate: string
+    user:string
+    dentist:string
+    createAt:string
+   
+}
+export interface DentistInfo{
+    name:
+        String,
+        
+ 
+    expirience:
+        Number,
+       
+    expertise:
+       [String],
+        
+
+    picture: 
+         String,
+        
 }

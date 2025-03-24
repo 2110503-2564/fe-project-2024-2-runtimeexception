@@ -1,31 +1,27 @@
+// src/redux/features/cartSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ReservationItem } from "../../../interfaces";
+import { BookingItem } from "../../../interfaces";
 
-type CartState = {
-    dentistItems: ReservationItem[];
+interface CartState {
+    bookingItems: BookingItem[]; // Changed from dentistItems to bookingItems
 }
 
 const initialState: CartState = {
-    dentistItems: []
-}
-
+    bookingItems: [] // Changed from dentistItems to bookingItems
+};
 
 export const cartSlice = createSlice({
-    name:"cart",
+    name: "cart",
     initialState,
     reducers: {
-        addReservation: (state, action:PayloadAction<ReservationItem>) => {
-          state.dentistItems.push(action.payload)
+        addBooking: (state, action: PayloadAction<BookingItem>) => {
+            state.bookingItems.push(action.payload); // Changed from dentistItems to bookingItems
         },
-        removeReservation: (state, action:PayloadAction<ReservationItem>) => {
-          const remainItems = state.dentistItems.filter(obj => {
-            return ((obj.carModel !== action.payload.carModel)
-                 || (obj.pickupDate !== action.payload.pickupDate)
-                 || (obj.returnDate !== action.payload.returnDate));
-          })
-          state.dentistItems = remainItems
+        removeBooking: (state, action: PayloadAction<BookingItem>) => {
+            state.bookingItems = state.bookingItems.filter(obj => obj.bookDate !== action.payload.bookDate); // Changed from dentistItems to bookingItems
         }
-      }
-})
-export const { addReservation, removeReservation } = cartSlice.actions
-export default cartSlice.reducer
+    }
+});
+
+export const { addBooking, removeBooking } = cartSlice.actions;
+export default cartSlice.reducer;

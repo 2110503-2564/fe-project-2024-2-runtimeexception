@@ -1,5 +1,3 @@
-
-import { deflate } from 'zlib'
 import InteractiveCard from './InteractiveCard'
 import Image from 'next/image'
 
@@ -8,7 +6,7 @@ export default function ProductCard({dentistName, imgSrc , onCompare} : {dentist
         <InteractiveCard contentName={dentistName}>
 
             <div className='w-full h-[70%] relative rounded-t-lg'>
-                <Image src={imgSrc }
+                <Image src={imgSrc}
                 alt = 'Product Picture'
                 fill = {true}
                 className='object-cover rounded-t-lg'

@@ -5,6 +5,7 @@ import { useReducer } from "react"
 import { ClassNames } from "@emotion/react"
 import { useRef ,useEffect , useState} from "react"
 import getDentists from "@/libs/getDentists"
+import { DentistInfo } from "../../interfaces"
 export default function DentistPanel(){
 
     const [dentistResponse,setDentistResponse] = useState(null)
@@ -43,22 +44,22 @@ export default function DentistPanel(){
     //     {cid: "004", name:"Tesla Model 3",image: "/img/tesla.jpg"}
     // ]
 
-if(!dentistResponse) return (<p>Car Panel is Loading ...</p>)
+if(!dentistResponse) return (<p>Dentist Panel is Loading ...</p>)
     return(
         <div>
         <div style={{margin:"20px" , display:"flex" , flexDirection:"row" , flexWrap:"wrap" , justifyContent:"space-around" , alignContent:"space-around"}}>
             {
                 dentistResponse.data.map((dentistItem) =>(
-                    <Link href={`/car/${dentistItem.id}`} className="w-1/5" key={dentistItem.id}>
+                    <Link href={`/dentist/${dentistItem.id}`} className="w-1/5" key={dentistItem.id}>
                     <ProductCard dentistName={dentistItem.model} imgSrc={dentistItem.picture}
-                    onCompare={(car:string) => dispatchCompare({type:'add' , dentistName:car})}
+                    onCompare={(dentist:string) => dispatchCompare({type:'add' , dentistName:dentist})}
                />
                </Link>
                 ))
             }
            </div>
            <div className="w-fill text-xl font-medium">Compare List: {comparelist.size}</div>
-            {Array.from(comparelist).map((car)=><div key={car} onClick={()=>dispatchCompare({type:'remove',dentistName:car})}>{car}</div>)}
+            {Array.from(comparelist).map((dentist)=><div key={dentist} onClick={()=>dispatchCompare({type:'remove',dentistName:dentist})}>{dentist}</div>)}
             <button className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2 text-white shadow-sm"
             onClick={()=> {countRef.current = countRef.current+1; alert(countRef.current)}}>Count w Ref variable</button>
             <input type="text" placeholder="please fill" className="block text-gray-900 text-sm rounded-lg p-2 m-2 bg-purple-50 ring-1 rinf-inset ring-purple-400 focus:outline-none focus:bg-purple-200 focus:ring-2"
