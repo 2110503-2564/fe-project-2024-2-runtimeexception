@@ -5,16 +5,16 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { addBooking } from "@/redux/features/cartSlice";
 import { BookingItem } from "../../../interfaces";
-import {
-  TextField,
-  Button,
-} from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 export default function Reservations() {
+  const searchParams = useSearchParams(); // Get URL parameters
+  const { data: session } = useSession(); // Get user session
+
   const [createAt, setCreateAt] = useState("");
   const [user, setUser] = useState("");
   const [dentist, setDentist] = useState("");
@@ -22,8 +22,6 @@ export default function Reservations() {
 
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
-  const searchParams = useSearchParams(); // Get URL parameters
-  const { data: session } = useSession(); // Get user session
 
   useEffect(() => {
     // Set current time for createAt
@@ -31,7 +29,7 @@ export default function Reservations() {
     setCreateAt(now);
 
     // Pre-fill dentist name from URL parameter
-    const dentistName = searchParams.get("dentistName");
+    const dentistName = searchParams.get("name");
     if (dentistName) {
       setDentist(dentistName);
     }
