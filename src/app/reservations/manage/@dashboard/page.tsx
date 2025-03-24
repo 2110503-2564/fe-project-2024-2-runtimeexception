@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import getUserProfile from "@/libs/getUserProfile";
 import { redirect } from "next/navigation";
 import { revalidateTag } from "next/cache";
-import Car from "@/db/models/Car";
+import Car from "@/db/models/Dentist";
 import { dbConnect } from "@/db/dbConnect";
 
 async function DashboardPage() {

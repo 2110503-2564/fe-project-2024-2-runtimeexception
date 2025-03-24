@@ -1,19 +1,19 @@
-import getCars from "@/libs/getCars"
-import CarCatalog from "@/components/CarCatalog"
+import getDentists from "@/libs/getDentists"
+import DentistCatalog from "@/components/DentistCatalog"
 import { Suspense } from "react"
 import { LinearProgress } from "@mui/material"
-import CarPanel from "@/components/CarPanel"
-export default  function Car(){
-    const cars = getCars()
+import DentistPanel from "@/components/DentistPanel"
+export default  function Dentist(){
+    const dentists = getDentists()
     return(
         <main className="text-center p-5">
             <h1 className="text-xl font-medium">Select Your Travel Partner</h1>
             <Suspense fallback={<p>Loading...<LinearProgress></LinearProgress></p>}>
-            <CarCatalog carJson={cars}/>
+            <DentistCatalog dentistJson={dentists}/>
        </Suspense>
        <hr className="my-10"/>
        <h1 className="text-xl font-medium">TRY Client-Side Car Panel</h1>
-        <CarPanel/>
+        <DentistPanel/>
         </main>
     )
 }

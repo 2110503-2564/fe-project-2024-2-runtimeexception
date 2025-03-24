@@ -2,14 +2,15 @@
 import { removeReservation } from "@/redux/features/cartSlice"
 import { AppDispatch, useAppSelector } from "@/redux/store"
 import { useDispatch } from "react-redux"
+import { ReservationItem } from "../../interfaces"
 
 export default function ReservationCart() {
-  const carItems = useAppSelector((state) => state.cartSlice.carItems)
+  const dentistItems = useAppSelector((state) => state.cartSlice.dentistItems)
   const dispatch = useDispatch<AppDispatch>()
   return (
     <>
       {
-        carItems.map((reservationItem) => (
+        dentistItems.map((reservationItem: ReservationItem) => (
           <div className="bg-slate-200 rounded px-5 mx-5 py-2 my-2" key={reservationItem.carId}>
             <div className="text-xl">{reservationItem.carModel}</div>
             <div className="text-sm">Pick-Up {reservationItem.pickupDate} from {reservationItem.pickupLocation}</div>

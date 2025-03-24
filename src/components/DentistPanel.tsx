@@ -4,15 +4,15 @@ import ProductCard from "./ProductCard"
 import { useReducer } from "react"
 import { ClassNames } from "@emotion/react"
 import { useRef ,useEffect , useState} from "react"
-import getCars from "@/libs/getCars"
-export default function CarPanel(){
+import getDentists from "@/libs/getDentists"
+export default function DentistPanel(){
 
-    const [carResponse,setCarResponse] = useState(null)
+    const [dentistResponse,setDentistResponse] = useState(null)
 
     useEffect(()=>{
       const fetchData = async()=>{
-        const cars = await getCars()
-        setCarResponse(cars)
+        const dentists = await getDentists()
+        setDentistResponse(dentists)
       }  
       fetchData()
     },[])
@@ -20,13 +20,13 @@ export default function CarPanel(){
     const countRef =useRef(0)
     const inputRef = useRef<HTMLInputElement>(null)
 
-    const compareReducer = (comparelist:Set<string> , action:{type:string , carName:string})=>{
+    const compareReducer = (comparelist:Set<string> , action:{type:string , dentistName:string})=>{
         switch(action.type){
             case 'add':{
-                return new Set(comparelist.add(action.carName))
+                return new Set(comparelist.add(action.dentistName))
             }
             case 'remove':{
-                comparelist.delete(action.carName)
+                comparelist.delete(action.dentistName)
                 return new Set(comparelist)
             }
             default: return comparelist
@@ -43,22 +43,22 @@ export default function CarPanel(){
     //     {cid: "004", name:"Tesla Model 3",image: "/img/tesla.jpg"}
     // ]
 
-if(!carResponse) return (<p>Car Panel is Loading ...</p>)
+if(!dentistResponse) return (<p>Car Panel is Loading ...</p>)
     return(
         <div>
         <div style={{margin:"20px" , display:"flex" , flexDirection:"row" , flexWrap:"wrap" , justifyContent:"space-around" , alignContent:"space-around"}}>
             {
-                carResponse.data.map((carItem) =>(
-                    <Link href={`/car/${carItem.id}`} className="w-1/5" key={carItem.id}>
-                    <ProductCard carName={carItem.model} imgSrc={carItem.picture}
-                    onCompare={(car:string) => dispatchCompare({type:'add' , carName:car})}
+                dentistResponse.data.map((dentistItem) =>(
+                    <Link href={`/car/${dentistItem.id}`} className="w-1/5" key={dentistItem.id}>
+                    <ProductCard dentistName={dentistItem.model} imgSrc={dentistItem.picture}
+                    onCompare={(car:string) => dispatchCompare({type:'add' , dentistName:car})}
                />
                </Link>
                 ))
             }
            </div>
            <div className="w-fill text-xl font-medium">Compare List: {comparelist.size}</div>
-            {Array.from(comparelist).map((car)=><div key={car} onClick={()=>dispatchCompare({type:'remove',carName:car})}>{car}</div>)}
+            {Array.from(comparelist).map((car)=><div key={car} onClick={()=>dispatchCompare({type:'remove',dentistName:car})}>{car}</div>)}
             <button className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2 text-white shadow-sm"
             onClick={()=> {countRef.current = countRef.current+1; alert(countRef.current)}}>Count w Ref variable</button>
             <input type="text" placeholder="please fill" className="block text-gray-900 text-sm rounded-lg p-2 m-2 bg-purple-50 ring-1 rinf-inset ring-purple-400 focus:outline-none focus:bg-purple-200 focus:ring-2"

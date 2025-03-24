@@ -1,9 +1,9 @@
 import Image from "next/image"
-import getCar from "@/libs/getCar"
+import getDentist from "@/libs/getDentist"
 import Link from "next/link"
-export default async function CarDetailPage({params} : {params:{cid:string}}){
+export default async function DentistDetailPage({params} : {params:{did:string}}){
     
-const carDetail = await getCar(params.cid)
+const dentistDetail = await getDentist(params.did)
 
     // const mockCarRepo = new Map()
     // mockCarRepo.set("001" , {name:"Honda Civic",image: "/img/civic.jpg"})
@@ -13,21 +13,21 @@ const carDetail = await getCar(params.cid)
 
     return(
         <main className="text-center p-5">
-            <h1 className="text-lg font-medium">{carDetail.data.model}</h1>
+            <h1 className="text-lg font-medium">{dentistDetail.data.model}</h1>
         <div className="flex flex-row my-5">
-            <Image src={carDetail.data.picture}
+            <Image src={dentistDetail.data.picture}
             alt='Car Image'
             width={0}
             height={0}
             sizes="100vw"
             className="rounded-lg w-[30%]"/>
-        <div className="text-md mx-5">{carDetail.data.description}
-            <div>Doors: {carDetail.data.doors}</div>
-            <div>Seats: {carDetail.data.seats}</div>
-            <div>Large Bags: {carDetail.data.large_bags}</div>
-            <div>Small Bags: {carDetail.data.small_bags}</div>
-            <div>Daily Rental Rate:{carDetail.data.dayRate} (insurance included)</div>
-            <Link href={`/reservations?id=${params.cid}&model=${carDetail.data.model}`}>
+        <div className="text-md mx-5">{dentistDetail.data.description}
+            <div>Doors: {dentistDetail.data.doors}</div>
+            <div>Seats: {dentistDetail.data.seats}</div>
+            <div>Large Bags: {dentistDetail.data.large_bags}</div>
+            <div>Small Bags: {dentistDetail.data.small_bags}</div>
+            <div>Daily Rental Rate:{dentistDetail.data.dayRate} (insurance included)</div>
+            <Link href={`/reservations?id=${params.did}&model=${dentistDetail.data.model}`}>
                 <button className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-1 text-white shadow-sm">
                     Make Reservation
                 </button>
@@ -40,5 +40,5 @@ const carDetail = await getCar(params.cid)
 }
 
 export async function generateStaticParams(){
-    return [{cid:'001'} ,{cid:'002'} ,{cid:'003'} ,{cid:'004'} ]
+    return [{did:'001'} ,{did:'002'} ,{did:'003'} ,{did:'004'} ]
 }
