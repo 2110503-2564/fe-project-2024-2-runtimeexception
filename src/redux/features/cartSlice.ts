@@ -3,11 +3,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { BookingItem } from "../../../interfaces";
 
 interface CartState {
-    bookingItems: BookingItem[]; // Changed from dentistItems to bookingItems
+    bookingItems: BookingItem[];
 }
 
 const initialState: CartState = {
-    bookingItems: [] // Changed from dentistItems to bookingItems
+    bookingItems: []
 };
 
 export const cartSlice = createSlice({
@@ -15,10 +15,19 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addBooking: (state, action: PayloadAction<BookingItem>) => {
-            state.bookingItems.push(action.payload); // Changed from dentistItems to bookingItems
+            state.bookingItems.push(action.payload);
         },
         removeBooking: (state, action: PayloadAction<BookingItem>) => {
-            state.bookingItems = state.bookingItems.filter(obj => obj.bookDate !== action.payload.bookDate); // Changed from dentistItems to bookingItems
+            state.bookingItems = state.bookingItems.filter(
+                (obj) =>
+                    !(
+                        obj.bookDate === action.payload.bookDate &&
+                        obj.bookTime === action.payload.bookTime && // Check bookTime
+                        obj.user === action.payload.user &&
+                        obj.dentist === action.payload.dentist &&
+                        obj.createAt === action.payload.createAt
+                    )
+            );
         }
     }
 });

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const DentistSchema = new mongoose.Schema({
     name:{
@@ -16,8 +16,25 @@ const DentistSchema = new mongoose.Schema({
         type : [String],
         required: [true, 'Please add an expertise']
     },
+    bookings: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Booking'
+    }]
 
 },
-)
-const Dentist = mongoose.model("Dentist", DentistSchema)||mongoose.model("Dentist", DentistSchema);
-export default Dentist;
+{
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+});
+
+// Virtual populate
+// DentistSchema.virtual('bookings', {
+//     ref: 'Booking',
+//     localField: '_id',
+//     foreignField: 'Dentist',
+//     justOne: false
+// });
+
+
+
+module.exports = mongoose.model('Dentist', DentistSchema);
