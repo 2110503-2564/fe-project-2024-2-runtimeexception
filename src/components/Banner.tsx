@@ -10,6 +10,17 @@ export default function Banner (){
     const router = useRouter()
     const{data:session} = useSession()
     console.log(session?.user.token)
+    
+    const bannerTextStyle = {
+        color: '#00ACC1',
+        WebkitTextStrokeWidth: '1px',
+        WebkitTextStrokeColor: '#000',
+        fontFamily: 'Inter',
+        fontStyle: 'normal',
+        fontWeight: 500,
+        lineHeight: 'normal',
+    };
+
     return(
         <div className={styles.banner} onClick={()=>{setIndex(index+1)}}>
             <Image src={covers[index%3]} 
@@ -17,8 +28,8 @@ export default function Banner (){
             fill={true}
             objectFit='cover'/>
     <div className={styles.bannerText}>
-        <h1 className='text-4xl font-medium'>Your Teavel Partner</h1>
-        <h3 className='text-xl font-serif'> Explore</h3>
+        <h1 className='text-5xl font-medium' style={bannerTextStyle} >If you want to find some good Dentist</h1>
+        <h3 className='text-4xl font-serif' style={bannerTextStyle}> It’s only us can help you!!</h3>
     </div>
     {
         session? <div className='z-30 absolute top-5 right-10 font-semibold text-cyan-800 text-xl'>Hello {session.user?.name}</div>:null
@@ -27,7 +38,7 @@ export default function Banner (){
         font-semibold py-2 px-2 m-2 rounded z-30 absolute bottom-0 right-0
         hover:bg-cyan-600 hover:text-white hover:border-transparent'
         onClick={(e)=> {e.stopPropagation; router.push('/car')}}>
-            Select Your Travel Partner NOW
+            Select Your Dentist NOW
         </button>
         </div>
     )
