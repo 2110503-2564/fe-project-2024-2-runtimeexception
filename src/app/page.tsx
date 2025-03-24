@@ -1,14 +1,12 @@
 
 import Banner from "@/components/Banner";
 
-import { TravelCard } from "@/components/TravelCard";
+import { VideoCard } from "@/components/VideoCard";
 export default function Home() {
   return (
     <main >
       <Banner/>
-    <TravelCard></TravelCard>
- 
-  
+    <VideoCard></VideoCard>
     </main>
   );
 }

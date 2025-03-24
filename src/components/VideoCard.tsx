@@ -3,7 +3,7 @@ import { VlogPlayer } from "./VlogPlayer"
 import { useState } from "react"
 import { Rating } from "@mui/material"
 import { useWindowListener } from "@/hooks/useWindowListener"
-export function TravelCard(){
+export function VideoCard(){
    const [playing , setPlaying] = useState(true)
     const [rating,setRating] = useState(0)
     const [pointerPosition,setPointerPosition] = useState({x:0,y:0})
