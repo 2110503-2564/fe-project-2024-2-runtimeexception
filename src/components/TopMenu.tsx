@@ -10,9 +10,9 @@ export default async function TopMenu(){
     return(
         <div className={styles.menucontainer}>
             <Image src={'/img/logo.png'} className={styles.logoimg} alt='logo' width={0} height={0} sizes='100vh'/>
-            <TopMenuItem title='Select Dentist' pageRef='/dentist'/>
+            <TopMenuItem title='Select Car' pageRef='/car'/>
 
-        <TopMenuItem title='Your book' pageRef='/yourbook'/>
+        <TopMenuItem title='Cart' pageRef='/cart'/>
         {
             session?<Link href="/api/auth/signout"> <div className='flex items-center absolute right-0 h-full px-2 absolute right-0 text-cyan-600 text-sm'>Sign-Out of {session.user?.name}</div></Link>
             :<Link href="/api/auth/signin"><div className='flex items-center absolute right-0 h-full px-2 absolute right-0 text-cyan-600 text-sm'>Sign-In</div>

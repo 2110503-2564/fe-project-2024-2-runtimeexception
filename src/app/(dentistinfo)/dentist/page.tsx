@@ -2,8 +2,7 @@ import getDentists from "@/libs/getDentists"
 import DentistCatalog from "@/components/DentistCatalog"
 import { Suspense } from "react"
 import { LinearProgress } from "@mui/material"
-import DentistPanel from "@/components/DentistPanel"
-export default  function Car(){
+export default  function Dentist(){
     const dentists = getDentists()
     return(
         <main className="text-center p-5">
