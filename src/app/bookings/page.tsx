@@ -5,32 +5,16 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { addBooking } from "@/redux/features/cartSlice";
 import { BookingItem } from "../../../interfaces";
-<<<<<<< HEAD
 import { TextField, Button, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
-||||||| 97443b8
-import {
-  TextField,
-  Button,
-} from "@mui/material";
-=======
-import { TextField, Button } from "@mui/material";
->>>>>>> e0f9f7a461840b4403688e5cf8160da34a9c1630
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 export default function Reservations() {
-<<<<<<< HEAD
   const searchParams = useSearchParams();
   const { data: session } = useSession();
 
-||||||| 97443b8
-=======
-  const searchParams = useSearchParams(); // Get URL parameters
-  const { data: session } = useSession(); // Get user session
-
->>>>>>> e0f9f7a461840b4403688e5cf8160da34a9c1630
   const [createAt, setCreateAt] = useState("");
   const [user, setUser] = useState("");
   const [dentist, setDentist] = useState("");
@@ -44,15 +28,7 @@ export default function Reservations() {
     const now = dayjs().format("YYYY-MM-DD HH:mm:ss");
     setCreateAt(now);
 
-<<<<<<< HEAD
     const dentistName = searchParams.get("name");
-||||||| 97443b8
-    // Pre-fill dentist name from URL parameter
-    const dentistName = searchParams.get("dentistName");
-=======
-    // Pre-fill dentist name from URL parameter
-    const dentistName = searchParams.get("name");
->>>>>>> e0f9f7a461840b4403688e5cf8160da34a9c1630
     if (dentistName) {
       setDentist(dentistName);
     }
