@@ -3,7 +3,7 @@ export interface BookingItem {
     bookDate: string;
     bookTime: string; // Added bookTime
     user: string;
-    dentist: DentistInfo[];
+    dentist: DentistItem[];
     createAt: string;
 }
 
@@ -13,10 +13,15 @@ export interface BookJson{
     data: BookingItem[];
 }
 
-export interface DentistInfo {
-    name: String;
-    expirience: Number;
-    expertise: [String];
-    picture: String;
+export interface DentistItem {
+    _id: string;
+    name: string;
+    expirience: number;
+    expertise: string[];
+    picture: string;
 }
 
+export interface DentistJson {
+    count: number;
+    data: DentistItem[];
+}
