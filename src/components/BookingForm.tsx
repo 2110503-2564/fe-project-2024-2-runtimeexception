@@ -1,5 +1,5 @@
 'use client'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions';
 import { dbConnect } from '@/db/dbConnect';
 import addBooking from '@/libs/addBooking';
 import { Dayjs } from 'dayjs';

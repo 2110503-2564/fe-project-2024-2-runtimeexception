@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions"
 import DateBooking from "@/components/DateBooking"
 import EditBooking from "@/components/EditBooking"
 import getBooking from "@/libs/getBooking"

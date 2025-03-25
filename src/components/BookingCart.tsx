@@ -42,9 +42,7 @@ export default async function BookingCart({bookJson,token}:{bookJson:BookJson,to
                     Edit</button>
                     </Link>
                     <DeleteButton token={token} bookingId={bookingItem._id} />
-                    {/* <button className="rounded-md bg-sky-600 hover:bg-rose-600 px-3 py-2 text-white shadow-sm" 
-                    onClick={deleteBook}>
-                    Delete</button> */}
+            
                     </div>
                 </div>
             )})

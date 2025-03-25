@@ -2,7 +2,7 @@ import BookingCart from "@/components/BookingCart";
 import getBookings from "@/libs/getBookings";
 import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "../api/auth/[...nextauth]/authOptions";
 import { redirect } from "next/navigation";
 
 export default async function CartPage() {

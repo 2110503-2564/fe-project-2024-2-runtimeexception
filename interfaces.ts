@@ -3,8 +3,8 @@ export interface BookingItem {
     bookDate: string;
     bookTime: string; // Added bookTime
     user: string;
-    dentist: DentistItem[];
-    createAt: string;
+    dentist: DentistItem;
+    createdAt: string;
 }
 
 export interface BookJson{

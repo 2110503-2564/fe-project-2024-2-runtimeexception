@@ -32,7 +32,7 @@ export default function RegisterPage() {
                 password: userPassword,
                 redirect: false, // Prevent automatic redirect
             });
-
+           
             if (signInResult?.error) {
                 alert("Login Failed! " + signInResult.error);
             } else {
