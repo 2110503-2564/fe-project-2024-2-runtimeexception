@@ -17,8 +17,8 @@ export default async function BookingCart({bookJson,token}:{bookJson:BookJson,to
         <>
         {
             bookJsonReady.data.map((bookingItem:BookingItem)=>{
-                const bookD = dayjs(bookingItem.bookDate).format("D MMMM YYYY h:mm A");
-                const create = dayjs(bookingItem.createdAt).format("DD/MM/YYYY");
+                const bookD = dayjs(bookingItem.bookDate).add(7, "hour").format("D MMMM YYYY h:mm A");
+                const create = dayjs(bookingItem.createdAt).add(7, "hour").format("DD/MM/YYYY");
 
                 const deleteBook = async()=>{
                     try{

@@ -49,16 +49,16 @@ export default function EditBooking({session,dentist,book}:BookingFormProps){
         action={updatingBooking}
         className="flex flex-col items-center">
         <div className="text-3xl font-medium text-center mb-4 font-serif">Edit Booking</div>
+                <div className="space-x-5 space-y-2 w-fit px-6 py-5 flex flex-row justify-center">
+                    <div>Old date : {bookD.format("D MMMM YYYY h:mm A")}
+                    </div>
+                </div>
             <div className="w-full my-2">
                 <label className="block text-gray-700" htmlFor="dentist">Dentist</label>
                 <input type="text" id="dentist" name="dentist" value={dentist.name} 
                     className="bg-gray-200 border-2 rounded w-full p-2 text-gray-700"
                     disabled />
             </div>
-                <div className="bg-slate-100 rounded-lg space-x-5 space-y-2 w-fit px-6 py-5 flex flex-row justify-center">
-                    <div>Old date : {bookD.format("D MMMM YYYY h:mm A")}
-                    </div>
-                </div>
             <div className="w-full my-2">
                 <DateBooking onDateChange={setDatetime}/>
             </div>
