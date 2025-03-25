@@ -12,4 +12,6 @@
     top: 100px;
     z-index: 20;
     text-align: center;
+    justify-content: center;
+    align-items: center;
 }

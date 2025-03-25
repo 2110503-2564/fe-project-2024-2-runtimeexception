@@ -15,8 +15,8 @@ export default function Banner (){
 
 
     const bannerTextStyle = {
-        color: '#00ACC1',
-        WebkitTextStrokeWidth: '1px',
+        color: '#00fbff',
+        WebkitTextStrokeWidth: '0.7px',
         WebkitTextStrokeColor: '#000',
         fontFamily: 'Inter',
         fontStyle: 'normal',
@@ -30,18 +30,22 @@ export default function Banner (){
             fill={true}
             objectFit='cover'/>
     <div className={styles.bannerText}>
-        <h1 className='text-5xl font-medium' style={bannerTextStyle} >If you want to find some good Dentist</h1>
-        <h3 className='text-4xl font-serif' style={bannerTextStyle}> It’s only us can help you!!</h3>
+        <h1 className='text-7xl font-medium' style={bannerTextStyle} >If you want to find some good Dentist</h1>
+        <h3 className='text-6xl font-serif' style={bannerTextStyle}> It’s only us can help you!!</h3>
+        <br/>
+        <br/>
+        <br/>
+        <button className='bg-white text-cyan-600 border border-cyan-600
+        font-semibold py-2 px-2 m-2 rounded z-30 relative text-2xl
+        hover:bg-cyan-600 hover:text-white hover:border-transparent
+        '
+        onClick={(e)=> {e.stopPropagation(); router.push('/dentist')}}>
+            Select Your Dentist Now
+        </button>
     </div>
     {
         session? <div className='z-30 absolute top-5 right-10 font-semibold text-cyan-800 text-xl'>Hello {session.user?.name}</div>:null
     }
-        <button className='bg-white text-cyan-600 border border-cyan-600
-        font-semibold py-2 px-2 m-2 rounded z-30 absolute bottom-0 right-0
-        hover:bg-cyan-600 hover:text-white hover:border-transparent'
-        onClick={(e)=> {e.stopPropagation; router.push('/dentist')}}>
-            Select Your Dentist NOW
-        </button>
         </div>
     )
 }

@@ -2,35 +2,70 @@ import NextAuth from "next-auth/next";
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import userLogin from "@/libs/userLogin";
+import { userRegister } from "@/libs/userRegister";
 
 export const authOptions:AuthOptions = {
     providers:[
-        //Authentication Provider, use Credentials Provider
+
         CredentialsProvider({
-            // The name to display on the sign in form (e.g. "Sign in with...")
-            name: "Credentials",
-            // `credentials` is used to generate a form on the sign in page.
-            // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-            // e.g. domain, username, password, 2FA token, etc.
-            // You can pass any HTML attribute to the <input> tag through the object.
+
+            name: "Login",
+
             credentials: {
               email: { label: "Email", type: "email", placeholder: "email" },
-              password: { label: "Password", type: "password" }
+              password: { label: "Password", type: "password" ,placeholder: "password"}
             },
             async authorize(credentials, req) {
               if (!credentials) return null;
               const user = await userLogin(credentials.email,credentials.password)
               if (user) {
-                // Any object returned will be saved in `user` property of the JWT
+              
                 return user
               } else {
-                // If you return null then an error will be displayed advising the user to check their details.
+           
                 return null
         
-                // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+                
               }
             }
-        })
+        }),
+        CredentialsProvider({
+          name: "Register",
+          credentials: {
+            email: { label: "Email", type: "email", placeholder: "email" },
+            password: { label: "Password", type: "password" ,placeholder: "password"},
+            name: { label: "Name", type: "name", placeholder: "Name" },
+            tel: { label: "Telephone", type: "tel", placeholder: "Telephone" },
+            role: { label: "Role", type: "role", placeholder: "Role", disabled: true,value:"user" },
+          },
+          async authorize(credentials, req) {
+            if (!credentials) return null;
+            try {
+              // Basic input validation example
+              if (!credentials.email || !credentials.password || !credentials.name || !credentials.tel) {
+                throw new Error("Missing required fields.");
+              }
+          
+              const user = await userRegister(
+                credentials.name,
+                credentials.tel,
+                credentials.email,
+                credentials.password,
+                credentials.role
+              );
+              if (user) {
+                return user;
+              } else {
+                return null; // Or throw a more specific error
+              }
+            } catch (error: any) {
+              console.error("Registration failed:", error);
+              // Return a custom error message to the client
+              return null;
+            }
+          },
+        }),
+
     ],
     session: { strategy: "jwt"},
     callbacks: {

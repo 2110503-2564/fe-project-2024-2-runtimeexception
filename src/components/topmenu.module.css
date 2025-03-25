@@ -1,5 +1,5 @@
 .menucontainer {
-    height: 50px;
+    height: 70px;
     background-color: white;
     position: fixed;
     top: 0px;
@@ -23,6 +23,6 @@
     margin-top: auto;
     margin-bottom: auto;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 10pt;
+    font-size: 12pt;
     color: grey;
 }

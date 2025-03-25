@@ -1,7 +1,24 @@
-export default async function getDentists(){
-    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/dentists`,{next:{tags:['dentists']}})
-    if(!response.ok){
-        throw new Error("Failed to fetch Dentists")
+import { DentistJson } from "../../interfaces";
+
+const getDentists = async () => {
+    try {
+        const res = await fetch(`https://backendforfrontend.vercel.app/api/v1/dentists`, {
+            method: "GET",
+            cache: "no-store", // Add no-store to disable cache
+        });
+
+        if (!res.ok) {
+            throw new Error(`Failed to fetch dentists: ${res.status} ${res.statusText}`);
+        }
+
+        const data: DentistJson = await res.json();
+        console.log("Dentists Data:", data); // Log the data
+        return data;
+    } catch (error) {
+        console.error("Error fetching dentists:", error);
+        return null;
     }
-    return await response.json()
-}
+};
+
+export default getDentists;
+ 

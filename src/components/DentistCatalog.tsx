@@ -8,7 +8,6 @@ export default async function DentistCatalog({dentistJson}:{dentistJson:DentistJ
 
     return(
         <>
-
         <div style={{margin:"20px" , display:"flex" , flexDirection:"row" , flexWrap:"wrap" , justifyContent:"space-around" , alignContent:"space-around"}}>
             {
                 dentistJsonReady.data.map((dentistItem:DentistItem) =>(

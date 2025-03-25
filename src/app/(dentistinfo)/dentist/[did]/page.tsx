@@ -18,7 +18,7 @@ const dentistDetail = await getDentist(params.did)
             <div className="text-md mx-5 text-left bg-slate-200 h-full p-5 rounded-xl">Name: {dentistDetail.data.name}
             <div>Expirience: {dentistDetail.data.expirience}</div>
             <div>Expertise: {dentistDetail.data.expertise.join(", ")}</div>
-            <Link href={`/bookings?id=${params.did}&name=${dentistDetail.data.name}`}>
+            <Link href={`/bookings/${params.did}`}>
                 <button className="block rounded-md bg-sky-600 hover:bg-sky-700 px-3 py-1 text-white shadow-sm">
                     Make Booking
                 </button>

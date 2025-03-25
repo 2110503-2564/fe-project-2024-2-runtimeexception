@@ -1,11 +1,10 @@
-export default async function deleteBooking(token: string, id: string){
+export default async function deleteBooking(token: string, booking_id: string){
 
-    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/bookings/${id}`,{
+    const response = await fetch(`https://backendforfrontend.vercel.app/api/v1/bookings/${booking_id}`,{
         method:"DELETE",
         headers:{
             "Authorization": `Bearer ${token}`
-        },
-        next:{tags:['delBooks']}
+        }
     });
     if(!response.ok){
         throw new Error("Failed to fetch Bookings")
