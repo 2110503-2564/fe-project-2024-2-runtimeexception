@@ -26,18 +26,22 @@ export default function RegisterPage() {
                 userRole,
             );
             console.log(result);
+    
             // Sign in the user after successful registration
             const signInResult = await signIn("credentials", {
                 email: userEmail,
                 password: userPassword,
                 redirect: false, // Prevent automatic redirect
             });
-           
+    
             if (signInResult?.error) {
                 alert("Login Failed! " + signInResult.error);
             } else {
-                // Redirect to the banner page
-                router.push(callbackUrl);
+                // Ensure redirect to home page
+                router.replace("/");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
             }
         } catch (error: any) {
             alert("Signup Failed! " + error.message);
