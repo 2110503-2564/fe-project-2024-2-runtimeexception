@@ -13,7 +13,7 @@ export default async function CartPage() {
 
     return (
         <main>
-            <BookingCart bookJson={bookings}></BookingCart>
+    <BookingCart bookJson={bookings}></BookingCart>
         </main>
     );
 }

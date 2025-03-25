@@ -3,7 +3,7 @@ import { BookingItem, BookJson } from "../../interfaces";
 import deleteBooking from "@/libs/deleteBooking";
 
     
-export default async function BookingCart({bookJson,token}:{bookJson:BookJson,token:string}){
+export default async function BookingCart({bookJson}:{bookJson:BookJson}){
 
     const bookJsonReady = await bookJson;
 
