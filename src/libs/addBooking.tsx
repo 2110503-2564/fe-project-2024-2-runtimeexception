@@ -1,5 +1,5 @@
 export default async function addBooking(dentId:string,date:string){
-    const responses = await fetch(`http://localhost:5000/api/v1/auth/dentists/${dentId}`,{
+    const responses = await fetch(`${process.env.BACKEND_URL}/api/v1/auth/dentists/${dentId}`,{
         method:"POST",
         headers:{
             "Content-Type":"application/json",
