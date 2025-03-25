@@ -1,18 +1,20 @@
+export default async function userLogin(userEmail:string, userPassword:string) {
 
-export default async function userLogIn(userEmail:string,userPassword:string){
-    const responses = await fetch("http://localhost:5000/api/v1/auth/login",{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json",
+    const response = await fetch("http://localhost:5000/api/v1/auth/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
         },
-        body:JSON.stringify({
-            email:userEmail,
-            password:userPassword,
-        }),
-        
-    })
-    if(!responses.ok){
-        throw new Error("Failed to fetch login")
+        body: JSON.stringify({
+            email: userEmail,
+            password: userPassword
+        })
+    });
+
+    if(!response) {
+        throw new Error("Failed to log-in");
     }
-    return await responses.json()
+
+
+    return await response.json();
 }

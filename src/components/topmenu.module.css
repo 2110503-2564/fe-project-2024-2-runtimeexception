@@ -1,4 +1,4 @@
-.menucontainer{
+.menucontainer {
     height: 50px;
     background-color: white;
     position: fixed;
@@ -6,8 +6,8 @@
     left: 0px;
     right: 0px;
     z-index: 30;
-    border-top: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
     display: flex;
     flex-direction: row;
 }
@@ -22,7 +22,7 @@
     text-align: center;
     margin-top: auto;
     margin-bottom: auto;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 10pt;
-    color: gray;
+    color: grey;
 }

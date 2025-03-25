@@ -1,122 +1,86 @@
-"use client";
-import { useState, useEffect } from "react";
-import dayjs, { Dayjs } from "dayjs";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
-import { addBooking } from "@/redux/features/cartSlice";
-import { BookingItem } from "../../../interfaces";
-import { TextField, Button, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
-import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { dbConnect } from "@/db/dbConnect";
+import Booking from "@/db/models/Booking";
+import { revalidateTag } from "next/cache";
+import { redirect } from "next/navigation";
+import dayjs from "dayjs";
 
-export default function Reservations() {
-  const searchParams = useSearchParams();
-  const { data: session } = useSession();
+export default async function BookingPage() {
 
-  const [createAt, setCreateAt] = useState("");
-  const [user, setUser] = useState("");
-  const [dentist, setDentist] = useState("");
-  const [bookDate, setBookDate] = useState<Dayjs | null>(dayjs());
-  const [bookTime, setBookTime] = useState<string>(""); // New state for bookTime
 
-  const dispatch = useDispatch<AppDispatch>();
-  const router = useRouter();
+    const session = await getServerSession(authOptions);
 
-  useEffect(() => {
-    const now = dayjs().format("YYYY-MM-DD HH:mm:ss");
-    setCreateAt(now);
-
-    const dentistName = searchParams.get("name");
-    if (dentistName) {
-      setDentist(dentistName);
+    if (!session || !session.user) {
+        redirect("/api/auth/signin");
     }
 
-    if (session?.user?.name) {
-      setUser(session.user.name);
-    }
-  }, [searchParams, session]);
+    const createBooking = async (formData: FormData) => {
+        "use server";
+        const bookDate = formData.get("bookDate") as string;
+        const bookTime = formData.get("bookTime") as string;
+        const dentist = formData.get("dentist") as string;
+        const user = session.user.name;
+        const createAt = dayjs().format("YYYY-MM-DD HH:mm:ss");
 
-  const handleBookVenue = () => {
-    if (bookDate && user && dentist && createAt && bookTime) { // Check for bookTime
-      const formattedDate = bookDate.format("YYYY-MM-DD");
-      const booking: BookingItem = {
-        bookDate: formattedDate,
-        bookTime: bookTime, // Include bookTime
-        user,
-        dentist,
-        createAt,
-      };
-      dispatch(addBooking(booking));
-      router.push("/yourbook");
-    }
-  };
+        try {
+            await dbConnect();
+            await Booking.create({
+                bookDate,
+                bookTime,
+                user,
+                dentist,
+                createAt,
+            });
+        } catch (error) {
+            console.error("Booking Error:", error);
+        }
 
-  const timeSlots = ["09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00"]; // Example time slots
+        revalidateTag("bookings");
+        redirect("/yourbook");
+    };
 
-  return (
-    <main className="bg-slate-100 m-5 p-5 flex flex-col items-center">
-      <div className="text-xl font-medium text-center">New Booking</div>
-      <br />
-      <TextField
-        label="Create At"
-        value={createAt}
-        onChange={(e) => setCreateAt(e.target.value)}
-        className="w-full max-w-sm"
-        required
-        disabled
-      />
-      <br />
-      <TextField
-        label="User Name"
-        value={user}
-        onChange={(e) => setUser(e.target.value)}
-        className="w-full max-w-sm"
-        required
-        disabled={session?.user?.name !== undefined}
-      />
-      <br />
-      <TextField
-        label="Dentist Name"
-        value={dentist}
-        onChange={(e) => setDentist(e.target.value)}
-        className="w-full max-w-sm"
-        required
-        disabled={searchParams.get("name") !== null}
-      />
-      <br />
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker
-          label="Booking Date"
-          value={bookDate}
-          onChange={(newValue) => setBookDate(newValue)}
-          className="w-full max-w-sm"
-        />
-      </LocalizationProvider>
-      <br />
-      {/* Time Selection */}
-      <FormControl className="w-full max-w-sm">
-        <InputLabel id="time-select-label">Booking Time</InputLabel>
-        <Select
-          labelId="time-select-label"
-          id="time-select"
-          value={bookTime}
-          label="Booking Time"
-          onChange={(e) => setBookTime(e.target.value)}
-          required
-        >
-          {timeSlots.map((time) => (
-            <MenuItem key={time} value={time}>
-              {time}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <br />
-      <Button variant="contained" onClick={handleBookVenue} className="w-full max-w-sm">
-        Book Venue
-      </Button>
-    </main>
-  );
+    return (
+        <main className="bg-slate-100 m-5 p-5">
+            <div className="text-xl font-medium text-center">New Booking</div>
+            <form action={createBooking} className="flex flex-col items-center">
+                <input type="hidden" name="createAt" value={dayjs().format("YYYY-MM-DD HH:mm:ss")} />
+                
+                <div className="w-full max-w-sm my-2">
+                    <label className="block text-gray-700" htmlFor="user">User</label>
+                    <input type="text" id="user" name="user" value={session.user.name} 
+                        className="bg-gray-200 border-2 rounded w-full p-2 text-gray-700"
+                        disabled />
+                </div>
+
+                <div className="w-full max-w-sm my-2">
+                    <label className="block text-gray-700" htmlFor="user">User</label>
+                    <input type="text" id="dentist" name="dentist" value={session.user.name} 
+                        className="bg-gray-200 border-2 rounded w-full p-2 text-gray-700"
+                        disabled />
+                </div>
+
+                <div className="w-full max-w-sm my-2">
+                    <label className="block text-gray-700" htmlFor="bookDate">Booking Date</label>
+                    <input type="date" id="bookDate" name="bookDate" required
+                        className="border-2 rounded w-full p-2 text-gray-700" />
+                </div>
+
+                <div className="w-full max-w-sm my-2">
+                    <label className="block text-gray-700" htmlFor="bookTime">Booking Time</label>
+                    <select id="bookTime" name="bookTime" required 
+                        className="border-2 rounded w-full p-2 text-gray-700">
+                        <option value="">Select Time</option>
+                        {["09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00"].map(time => (
+                            <option key={time} value={time}>{time}</option>
+                        ))}
+                    </select>
+                </div>
+
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white p-2 rounded mt-4 w-full max-w-sm">
+                    Book Appointment
+                </button>
+            </form>
+        </main>
+    );
 }

@@ -7,10 +7,9 @@
     position: relative;
 }
 
-.bannerText {
+.bannerText{
     position: relative;
     top: 100px;
     z-index: 20;
     text-align: center;
-    color: black;
 }

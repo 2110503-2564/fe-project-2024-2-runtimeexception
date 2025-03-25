@@ -2,10 +2,12 @@ import Link from "next/link"
 import ProductCard from "./ProductCard"
 
 export default async function DentistCatalog({dentistJson}:{dentistJson:Object}){
-   const dentistJsonReady = await dentistJson
+    
+    const dentistJsonReady = await dentistJson;
+
     return(
         <>
-        Explore {dentistJsonReady.count} dentists in our catalog
+
         <div style={{margin:"20px" , display:"flex" , flexDirection:"row" , flexWrap:"wrap" , justifyContent:"space-around" , alignContent:"space-around"}}>
             {
                 dentistJsonReady.data.map((dentistItem:Object) =>(

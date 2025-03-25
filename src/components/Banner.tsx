@@ -1,16 +1,19 @@
 'use client'
-import { useRouter } from 'next/navigation'
+import { useState } from 'react';
 import styles from './banner.module.css'
-import Image from 'next/image'
-import { useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { useSession } from 'next-auth/react';
+
 export default function Banner (){
     const covers = ['/img/cover.jpg','/img/cover2.jpg','/img/cover3.jpg']
-    const[index,setIndex] = useState(0);
-    const router = useRouter()
-    const{data:session} = useSession()
-    console.log(session?.user.token)
-    
+    const [index, setIndex] = useState(0);
+    const router = useRouter();
+
+    const { data:session } = useSession();
+    console.log(session?.user.token);
+
+
     const bannerTextStyle = {
         color: '#00ACC1',
         WebkitTextStrokeWidth: '1px',
@@ -20,8 +23,7 @@ export default function Banner (){
         fontWeight: 500,
         lineHeight: 'normal',
     };
-
-    return(
+    return (
         <div className={styles.banner} onClick={()=>{setIndex(index+1)}}>
             <Image src={covers[index%3]} 
             alt = 'cover' 
